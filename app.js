@@ -3,7 +3,7 @@ const dotenv = require('dotenv').config()
 const app = express()
 const cors = require('cors')
 const port = process.env.PORT || 5000
-const connect_postgres=require('./models/postgresql/postgresql_Connection')
+const connect_postgres=require('./models/postgresql/index')
 const connect_mongodb=require('./models/mongo_db/mongo_Connection')
 
 connect_mongodb();

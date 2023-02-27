@@ -1,6 +1,9 @@
 const { generateAccessToken, generateRefreshToken } = require('../controllers/auth_Contoller')
 let refresh_tokens = []
 
+// @description < controller to login admin>
+// @version < 27-02-2023>
+// @body {email,password} for login admin
 module.exports.admin_login = async (req, res, next) => {
     try {
         let { email, password } = req.body
@@ -17,20 +20,24 @@ module.exports.admin_login = async (req, res, next) => {
                 sameSite: "strict"
 
             }).json({ reffreshtoken })
-        }else{
-            res.status(400).json({message:"incorect credentials"})
+        } else {
+            res.status(400).json({ message: "incorect credentials" })
         }
     } catch (error) {
         next(error)
     }
 }
 
-
-module.exports.refresh_token=()=>{
+// @description < controller to provideing re-access to the protected routes>
+// @version < 27-02-2023>
+// @body {refresh token} for re-access to the protected routes
+module.exports.refresh_token = () => {
 
 }
 
-
-module.exports.admin_logout=()=>{
+// @description < controller to loe out from the site>
+// @version < 27-02-2023>
+// @body {refresh token } for geting log out from the session
+module.exports.admin_logout = () => {
 
 }
