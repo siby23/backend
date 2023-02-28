@@ -2,9 +2,12 @@ const db = require('../models/postgresql/index')
 const contact = db.contact
 
 
-// @description < controller to get all contacts>
-// @version < 27-02-2023>
 
+/**
+* 
+* @description < controller to get all contacts>
+* @version < 27-02-2023> 
+*/
 module.exports.get_all_contact = async (req, res, next) => {
     try {
 
@@ -17,9 +20,15 @@ module.exports.get_all_contact = async (req, res, next) => {
     }
 
 }
-// @description < controller to get single contacts>
-// @version < 27-02-2023>
-// @param {user_id} for getting user details
+
+
+/**
+* 
+*@description < controller to get single contacts>
+*@version < 27-02-2023>
+*@param {user_id} for getting user details
+*/
+
 
 module.exports.get_single_contact = async (req, res, next) => {
     let user_id = req.params.id
@@ -31,10 +40,12 @@ module.exports.get_single_contact = async (req, res, next) => {
     }
 }
 
-// @description < controller to add contacts>
-// @version < 27-02-2023>
-// @body {name,location,mobile_nbr} for adding contact
-
+/**
+* 
+*@description < controller to add contacts>
+*@version < 27-02-2023>
+*@body {name,location,mobile_nbr} for adding contact
+*/
 module.exports.add_contact = async (req, res, next) => {
     let { name, location, mobile_nbr } = req.body
     try {
@@ -52,10 +63,13 @@ module.exports.add_contact = async (req, res, next) => {
     }
 }
 
-// @description < controller to update contacts>
-// @version < 27-02-2023>
-// @body {name,location,mobile_nbr} for updateing contact
-// @params {user_id} for finding updateing contact
+/**
+ * 
+ * @description < controller to update contacts>
+ * @version < 27-02-2023>
+ * @body {name,location,mobile_nbr} for updateing contact
+ * @params {user_id} for finding updateing contact
+ */
 
 module.exports.update_contact = async (req, res, next) => {
     let user_id = req.params.id
@@ -74,10 +88,12 @@ module.exports.update_contact = async (req, res, next) => {
     }
 }
 
-// @description < controller to delete contacts>
-// @version < 27-02-2023>
-// @params {user_id} for finding contact and delete
-
+/**
+ * 
+*@description < controller to delete contacts>
+*@version < 27-02-2023>
+*@params {user_id} for finding contact and delete 
+ */
 module.exports.delete_contact = async (req, res, next) => {
     let user_id = req.params.id
     try {
