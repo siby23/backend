@@ -10,7 +10,7 @@ module.exports=(sequelize, DataTypes)=>{
             type:DataTypes.STRING,
             allowsNull:false
         },
-        mobile_nbr:{
+        mobile:{
             type:DataTypes.STRING,
             allowsNull:false
         }

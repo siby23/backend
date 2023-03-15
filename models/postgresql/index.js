@@ -1,17 +1,16 @@
 const { Sequelize, DataTypes } = require('sequelize')
-
 const sequelize = new Sequelize(
-  "test",
-  "root_user",
-  "12345",
+  process.env.DB,
+  process.env.USER,
+  process.env.PASSWORD,
   {
-    host: "localhost",
-    dialect: 'postgres'
+    host: process.env.HOST,
+    dialect: process.env.DIALECT
   }
 )
 
 sequelize.authenticate().then(() => {
-  console.log("connect");
+  console.log("connect to postgresql");
 }).catch((error) => console.log(error))
 
 const db = {}
@@ -29,16 +28,3 @@ db.sequelize.sync({ force: false }).then(() => {
 
 
 module.exports = db
-
-// const { Client } = require('pg')
-// const client = new Client({
-//   user: 'root_user',
-//   host: 'localhost',
-//   database: 'test',
-//   password: '12345',
-//   port: 5432,
-// })
-// client.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Connected to postgresql");
-// });

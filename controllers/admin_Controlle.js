@@ -1,4 +1,5 @@
 const { generateAccessToken, generateRefreshToken } = require('../controllers/auth_Contoller')
+const jwt = require('jsonwebtoken')
 let refresh_tokens = []
 
 
@@ -10,7 +11,7 @@ let refresh_tokens = []
  */
 module.exports.admin_login = async (req, res, next) => {
     try {
-        
+
         let { email, password } = req.body
         if (email === process.env.Admin_email && password === process.env.Admin_password) {
 
@@ -41,7 +42,9 @@ module.exports.admin_login = async (req, res, next) => {
 * @body {refresh token} for re-access to the protected routes
  */
 
-module.exports.refresh_token = () => {
+module.exports.refresh_token = (req, res, next) => {
+    // console.log(req.body);
+
 
 }
 
@@ -53,6 +56,21 @@ module.exports.refresh_token = () => {
 * @body {refresh token } for geting log out from the session
  */
 
-module.exports.admin_logout = () => {
+module.exports.admin_logout = (req, res, next) => {
+    let { token } = req.body
+    try {
+
+        if (!token) throw res.status(404).json({ message: 'No token found' })
+        // if (!refresh_tokens.includes(token)) throw res.status(401).json({ message: "Invalied token" })
+
+        jwt.verify(token, process.env.SECRET, (err, data) => {
+            if (err) throw res.status(404).json({ message: "Verification failed" })
+            refresh_tokens = refresh_tokens.filter((item => item != token))
+            res.clearCookie("accesstoken").json({ message: "Logout Sucessfully" })
+        })
+
+    } catch (error) {
+        next(error)
+    }
 
 }

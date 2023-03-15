@@ -9,12 +9,13 @@ module.exports.verify = (req, res, next) => {
 
             let index = cookie.indexOf('accesstoken')
             let token = cookie[index + 1]
-            console.log(token, "token");
+            // console.log(token, "token");
             jwt.verify(token, process.env.SECRET, (err, admin) => {
                 if (err) throw res.json({ message: 'unautorised' })
                 next()
             })
         } else {
+
             throw ("no cookie found")
         }
     } catch (error) {

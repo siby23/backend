@@ -9,10 +9,11 @@ const Complaints = require('../models/mongo_db/complaints_Schema')
  */
 
 module.exports.get_single_complaint = async (req, res, next) => {
+   
     let user_id = req.params.id
-    console.log(user_id);
+ 
     try {
-        let single_complaint = await Complaints.find({ userid: user_id })
+        let single_complaint = await Complaints.find({ userid: user_id }).sort({next: -1})
         if (!single_complaint) throw res.status(404).json({ message: "No compalints for this user" })
         res.status(200).json(single_complaint)
 
@@ -29,16 +30,19 @@ module.exports.get_single_complaint = async (req, res, next) => {
  */
 
 module.exports.add_complaint = async (req, res, next) => {
-    let { userid, description } = req.body
+   
+    let { description, status, date } = req.body
+    let { id } = req.params
+    
     try {
         let complaints = await new Complaints({
-            userid: userid,
+            userid: id,
             description: description,
-            status: "opend",
-            date: Date.now()
+            status: status,
+            date: new Date(),
+            next: date
         })
         complaints.save(Complaints)
-        console.log(complaints);
         res.status(200).json(complaints)
 
     } catch (error) {
